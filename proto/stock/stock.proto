@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "proto/stock";
+
+package stock;
+
+
+service StockService {
+  rpc CheckIfItemIsInStock(CheckIfItemIsInStockRequest) returns (CheckIfItemIsInStockResponse);
+  rpc GetItems(GetItemsRequest) returns (GetItemsResponse);
+}
+
+message Item {
+    string ID = 1;
+    string Name = 2;
+    int32 Quantity = 3;
+    string PriceID = 4;
+}
+
+message ItemsWithQuantity {
+string ID = 1;
+int32 Quantity = 2;
+}
+
+message CreateOrderRequest {
+string customerID = 1;
+repeated ItemsWithQuantity Items = 2;
+}
+
+message CheckIfItemIsInStockRequest {
+  repeated ItemsWithQuantity Items = 1;
+}
+
+message CheckIfItemIsInStockResponse {
+  bool InStock = 1;
+  repeated Item Items = 2;
+}
+
+message GetItemsRequest {
+  repeated string ItemIDs = 1;
+}
+
+message GetItemsResponse {
+  repeated Item Items = 1;
+}
